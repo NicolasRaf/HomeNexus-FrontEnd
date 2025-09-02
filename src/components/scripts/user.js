@@ -1,0 +1,1 @@
+// Lógica de gerenciamento de usuário e linkagem de casas a ser desenvolvida.
