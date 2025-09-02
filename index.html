@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Nexus</title>
+    <link rel="shortcut icon" href="./src/assets/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="./src/components/styles/global.css">
+    <link rel="stylesheet" href="./src/components/styles/sidebar.css">
+    <link rel="stylesheet" href="./src/components/styles/main_content.css">
+
+</head>
+<body>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <h2>Minhas Casas</h2>
+        </header>
+        <ul id="lista-casas-sidebar" class="house-list">
+            </ul>
+        <form id="form-add-casa" class="add-form">
+            <input type="text" id="nome-nova-casa" placeholder="Nome da nova casa" required />
+            <button type="submit">Adicionar Casa</button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <h1 id="header-titulo">Home Nexus</h1>
+            <p id="header-subtitulo">Selecione uma casa na barra lateral para começar</p>
+        </header>
+        
+        <div id="content-area" class="content-area hidden">
+            <nav class="content-tabs">
+                <button class="tab-button active" data-view="view-comodos">Cômodos & Dispositivos</button>
+                <button class="tab-button" data-view="view-cenas">Cenas</button>
+            </nav>
+
+            <div id="view-comodos" class="tab-view active">
+                <div class="view-header">
+                    <h3>Cômodos</h3>
+                    <form id="form-add-comodo" class="add-form-inline">
+                        <input type="text" id="nome-novo-comodo" placeholder="Nome do novo cômodo" required />
+                        <button type="submit">Adicionar</button>
+                    </form>
+                </div>
+                <div id="lista-comodos-container">
+                    </div>
+            </div>
+
+            <div id="view-cenas" class="tab-view">
+                 <div class="view-header">
+                    <h3>Cenas</h3>
+                    <form id="form-add-cena" class="add-form-inline">
+                        <input type="text" id="nome-nova-cena" placeholder="Nome da nova cena" required />
+                        <button type="submit">Adicionar</button>
+                    </form>
+                </div>
+                <ul id="lista-cenas" class="entity-list">
+                    </ul>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
