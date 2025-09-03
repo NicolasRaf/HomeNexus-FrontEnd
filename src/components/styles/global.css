@@ -11,6 +11,7 @@
     --accent-primary: #3B82F6; /* Azul primário */
     --accent-hover: #2563EB;   /* Azul para hover */
     --danger: #EF4444;       /* Vermelho para deletar */
+    --success: #0fa90f; /*Cor verde de sucesso*/
     --border-color: #4B5563; /* Cor da borda */
 }
 

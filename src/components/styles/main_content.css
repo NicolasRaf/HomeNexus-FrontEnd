@@ -90,6 +90,15 @@
     margin-bottom: 1.5rem;
 }
 
+.room-card input.edit-input,
+.room-card input.edit-input-device {
+    padding: 0.25rem 0.35rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
 .room-header {
     display: flex;
     justify-content: space-between;
@@ -98,8 +107,6 @@
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 }
-
-.device-list { list-style: none; }
 
 .device-list-item {
     display: flex;
@@ -134,11 +141,12 @@
 }
 
 .status-indicator {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 0.5rem;
+    background-color: var(--accent-primary);
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
 .status-indicator.on { background-color: var(--success); }
@@ -164,3 +172,273 @@
 .status-off {
     background-color: #e74c3c; /* Vermelho */
 }
+/* Em NexusHome-Front-End/src/components/styles/main_content.css */
+
+/* Container para a lista de cenas */
+#lista-cenas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Estilo do Card da Cena */
+.scene-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column; /* Organiza header e footer verticalmente */
+    justify-content: space-between; /* Empurra o footer para baixo */
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.scene-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.scene-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    /* margin-bottom removido para dar controle ao flex container */
+}
+
+.scene-card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.status-text {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Opcional: Adiciona um espaço flexível para empurrar o footer para baixo */
+.scene-card-body {
+    flex-grow: 1; 
+}
+
+.scene-card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 0.75rem; 
+    padding-top: 1rem;
+}
+
+.scene-card-footer .btn-edit,
+.scene-card-footer .btn-execute,
+.scene-card-footer .btn-delete {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.scene-card-footer .btn-execute {
+    margin-right: 10px;
+}
+
+.scene-card-footer .btn-delete:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.scene-card-footer .btn-execute:hover {
+    background-color: #fffb0082;
+    color: white;
+}
+
+.scene-card-footer .btn-edit:hover {
+    background-color: #3a4e85;
+    color: white;
+}
+
+/* Estilos para o Toggle Switch (Ativar/Desativar) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ff9c9c;
+    transition: .4s;
+    border-radius: 28px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2ecc71;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+/* === ESTILO DO SLIDER DE LIGAR/DESLIGAR === */
+
+/* O container do nosso interruptor */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+/* Esconde o checkbox padrão do HTML */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* O fundo do slider (a parte que muda de cor) */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--danger); /* Cor quando desligado */
+  border: 1px solid var(--border-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+/* O pino redondo que desliza */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* Estilo para quando o checkbox está MARCADO (ligado) */
+input:checked + .slider {
+  background-color: var(--success); /* Cor de destaque quando ligado */
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+/* O fundo do slider (a parte que muda de cor) */
+.slider-scene {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-card); /* Cor quando desligado */
+  border: 1px solid var(--border-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+/* O pino redondo que desliza */
+.slider-scene:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 21px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* Estilo para quando o checkbox está MARCADO (ligado) */
+input:checked + .slider-scene {
+  background-color: var(--accent-primary); /* Cor de destaque quando ligado */
+}
+
+input:checked + .slider-scene:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+/* Adicionar em main_content.css */
+
+.actions-preview-list {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.actions-preview-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre os elementos */
+}
+
+.actions-preview-list .action-state {
+    font-weight: bold;
+    min-width: 45px; /* Alinha os nomes dos dispositivos */
+}
+
+.actions-preview-list .action-device {
+    color: var(--text-primary);
+}
+
+.actions-preview-list .action-room {
+    font-style: italic;
+    opacity: 0.8;
+}   
+
