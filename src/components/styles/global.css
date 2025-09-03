@@ -1,39 +1,39 @@
 /* Importação de fonte do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
 
 /* === VARIAVEIS GLOBAIS === */
 :root {
-    --bg-main: #121212;
-    --bg-sidebar: #1E1E1E;
-    --bg-card: #282828;
-    --text-primary: #E0E0E0;
-    --text-secondary: #B3B3B3;
-    --accent-primary: #3498db;
-    --accent-secondary: #2980b9;
-    --danger: #e74c3c;
-    --border-color: #2c2c2c;
-    --success: #2ecc71;
+  --bg-main: #121212;
+  --bg-sidebar: #1e1e1e;
+  --bg-card: #282828;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b3b3b3;
+  --accent-primary: #3498db;
+  --accent-secondary: #2980b9;
+  --danger: #e74c3c;
+  --border-color: #2c2c2c;
+  --success: #2ecc71;
 }
 
 /* === RESET E ESTILOS GLOBAIS === */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow: hidden;
 }
 
 .app-container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }

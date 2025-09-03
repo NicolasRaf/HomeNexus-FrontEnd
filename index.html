@@ -1,70 +1,232 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Nexus</title>
-    <link rel="shortcut icon" href="./src/assets/favicon.ico" type="image/x-icon">
-    
+    <title>Smart Home - Automação Residencial</title>
     <link rel="stylesheet" href="./src/components/styles/global.css">
-    <link rel="stylesheet" href="./src/components/styles/sidebar.css">
-    <link rel="stylesheet" href="./src/components/styles/main_content.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
-
-<div class="app-container">
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <h2>Minhas Casas</h2>
-        </header>
-        <ul id="lista-casas-sidebar" class="house-list">
-            </ul>
-        <form id="form-add-casa" class="add-form">
-            <input type="text" id="nome-nova-casa" placeholder="Nome da nova casa" required />
-            <button type="submit">Adicionar Casa</button>
-        </form>
-    </aside>
-
-    <main class="main-content">
-        <header class="main-header">
-            <h1 id="header-titulo">Home Nexus</h1>
-            <p id="header-subtitulo">Selecione uma casa na barra lateral para começar</p>
-        </header>
-        
-        <div id="content-area" class="content-area hidden">
-            <nav class="content-tabs">
-                <button class="tab-button active" data-view="view-comodos">Cômodos & Dispositivos</button>
-                <button class="tab-button" data-view="view-cenas">Cenas</button>
-            </nav>
-
-            <div id="view-comodos" class="tab-view active">
-                <div class="view-header">
-                    <h3>Cômodos</h3>
-                    <form id="form-add-comodo" class="add-form-inline">
-                        <input type="text" id="nome-novo-comodo" placeholder="Nome do novo cômodo" required />
-                        <button type="submit">Adicionar</button>
-                    </form>
-                </div>
-                <div id="lista-comodos-container">
+<body class="h-full">
+    <div id="app" class="flex h-full">
+         Sidebar 
+        <aside id="sidebar" class="w-64 bg-sidebar border-r border-sidebar-border flex flex-col">
+            <div class="p-6 border-b border-sidebar-border">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-sidebar-primary rounded-lg flex items-center justify-center">
+                        <i data-lucide="home" class="w-5 h-5 text-sidebar-primary-foreground"></i>
                     </div>
-            </div>
-
-            <div id="view-cenas" class="tab-view">
-                 <div class="view-header">
-                    <h3>Cenas</h3>
-                    <form id="form-add-cena" class="add-form-inline">
-                        <input type="text" id="nome-nova-cena" placeholder="Nome da nova cena" required />
-                        <button type="submit">Adicionar</button>
-                    </form>
+                    <h1 class="text-xl font-semibold text-sidebar-foreground">Smart Home</h1>
                 </div>
-                <ul id="lista-cenas" class="entity-list">
-                    </ul>
             </div>
-        </div>
-    </main>
-</div>
+            
+            <nav class="flex-1 p-4 space-y-2">
+                <button id="nav-dashboard" class="nav-item active w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button id="nav-houses" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left">
+                    <i data-lucide="building" class="w-5 h-5"></i>
+                    <span>Casas</span>
+                </button>
+                <button id="nav-scenes" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    <span>Cenas</span>
+                </button>
+                <button id="nav-users" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Usuários</span>
+                </button>
+            </nav>
+            
+            <div class="p-4 border-t border-sidebar-border">
+                <div class="flex items-center gap-3 p-3 rounded-lg bg-sidebar-accent/10">
+                    <div class="w-8 h-8 bg-sidebar-accent rounded-full flex items-center justify-center">
+                        <i data-lucide="user" class="w-4 h-4 text-sidebar-accent-foreground"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-sidebar-foreground truncate" id="current-user">Usuário</p>
+                        <p class="text-xs text-sidebar-foreground/60">Administrador</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
-<script type="module" src="script.js"></script>
+         Main Content 
+        <main class="flex-1 flex flex-col overflow-hidden">
+             Header 
+            <header class="bg-background border-b border-border px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="page-title" class="text-2xl font-semibold text-foreground">Dashboard</h2>
+                        <p id="page-subtitle" class="text-sm text-muted-foreground">Gerencie sua automação residencial</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button id="theme-toggle" class="p-2 rounded-lg bg-muted hover:bg-accent hover:text-accent-foreground transition-colors">
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </button>
+                        <button id="add-button" class="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors flex items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span>Adicionar</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+             Content Area 
+            <div class="flex-1 overflow-auto p-6">
+                <div id="content-area">
+                     Dashboard Content 
+                    <div id="dashboard-content" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-muted-foreground">Total de Casas</p>
+                                        <p id="total-houses" class="text-2xl font-semibold text-card-foreground">0</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="building" class="w-6 h-6 text-accent"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-muted-foreground">Dispositivos Ativos</p>
+                                        <p id="active-devices" class="text-2xl font-semibold text-card-foreground">0</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-chart-4/10 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="zap" class="w-6 h-6 text-chart-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-muted-foreground">Cenas Ativas</p>
+                                        <p id="active-scenes" class="text-2xl font-semibold text-card-foreground">0</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-chart-3/10 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="play-circle" class="w-6 h-6 text-chart-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm text-muted-foreground">Economia de Energia</p>
+                                        <p class="text-2xl font-semibold text-card-foreground">23%</p>
+                                    </div>
+                                    <div class="w-12 h-12 bg-chart-4/10 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="leaf" class="w-6 h-6 text-chart-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <h3 class="text-lg font-semibold text-card-foreground mb-4">Casas Recentes</h3>
+                                <div id="recent-houses" class="space-y-3">
+                                     Houses will be loaded here 
+                                </div>
+                            </div>
+                            
+                            <div class="bg-card rounded-lg p-6 border border-border">
+                                <h3 class="text-lg font-semibold text-card-foreground mb-4">Dispositivos Recentes</h3>
+                                <div id="recent-devices" class="space-y-3">
+                                     Devices will be loaded here 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     Houses Content 
+                    <div id="houses-content" class="hidden">
+                        <div id="houses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                             Houses will be loaded here 
+                        </div>
+                    </div>
+
+                     House Detail Content 
+                    <div id="house-detail-content" class="hidden">
+                        <div class="mb-6">
+                            <button id="back-to-houses" class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                <span>Voltar para Casas</span>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2">
+                                <div class="bg-card rounded-lg p-6 border border-border mb-6">
+                                    <h3 class="text-lg font-semibold text-card-foreground mb-4">Cômodos</h3>
+                                    <div id="rooms-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                         Rooms will be loaded here 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="bg-card rounded-lg p-6 border border-border">
+                                    <h3 class="text-lg font-semibold text-card-foreground mb-4">Cenas da Casa</h3>
+                                    <div id="house-scenes" class="space-y-3">
+                                         House scenes will be loaded here 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     Room Detail Content 
+                    <div id="room-detail-content" class="hidden">
+                        <div class="mb-6">
+                            <button id="back-to-house" class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                <span>Voltar para Casa</span>
+                            </button>
+                        </div>
+                        
+                        <div class="bg-card rounded-lg p-6 border border-border">
+                            <h3 class="text-lg font-semibold text-card-foreground mb-4">Dispositivos</h3>
+                            <div id="devices-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                 Devices will be loaded here 
+                            </div>
+                        </div>
+                    </div>
+
+                     Scenes Content 
+                    <div id="scenes-content" class="hidden">
+                        <div id="scenes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                             Scenes will be loaded here 
+                        </div>
+                    </div>
+
+                     Users Content 
+                    <div id="users-content" class="hidden">
+                        <div id="users-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                             Users will be loaded here 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+     Modals 
+    <div id="modal-overlay" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div id="modal-content" class="bg-background rounded-lg p-6 w-full max-w-md border border-border">
+             Modal content will be inserted here 
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
