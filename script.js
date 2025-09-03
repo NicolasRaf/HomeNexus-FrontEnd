@@ -1,33 +1,35 @@
-import { initCasas } from "./src/components/scripts/house.js"
-import { initComodos } from "./src/components/scripts/room.js"
-import { initCenas } from "./src/components/scripts/scene.js"
-import { initUsers, currentUser } from './src/components/scripts/user.js'; 
+import { initUsers, addUserMenu } from './src/components/scripts/user.js';
+import { initCasas } from './src/components/scripts/house.js';
+import { initComodos } from './src/components/scripts/room.js';
+import { initCenas } from './src/components/scripts/scene.js';
 
-// Adiciona os eventos de clique para alternar entre as abas.
+// Esta função só será chamada DEPOIS que o login for bem-sucedido.
+function startApp() {
+    initCasas();
+    initComodos();
+    initCenas();
+    initTabs();
+    addUserMenu();
+}
+
+// Lógica de navegação por abas
 function initTabs() {
-    const tabs = document.querySelectorAll(".tab-button");
-    const views = document.querySelectorAll(".tab-view");
+    const tabs = document.querySelectorAll('.tab-button');
+    const views = document.querySelectorAll('.tab-view');
 
-tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-    tabs.forEach((t) => t.classList.remove("active"));
-    views.forEach((v) => v.classList.remove("active"));
-
-    tab.classList.add("active");
-    const viewId = tab.dataset.view;
-    document.getElementById(viewId).classList.add("active");
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            views.forEach(v => v.classList.remove('active'));
+            tab.classList.add('active');
+            const viewId = tab.dataset.view;
+            document.getElementById(viewId).classList.add('active');
+        });
     });
-  });
-};
+}
 
-// Garante que o DOM está carregado antes de executar os scripts.
-document.addEventListener("DOMContentLoaded", () => {
-    initUsers();
-    if (currentUser) {
-        lucide.createIcons();
-        initCasas();
-        initComodos();
-        initCenas();
-        initTabs();
-    }
+// Ponto de partida da aplicação.
+document.addEventListener('DOMContentLoaded', () => {
+    // A função initUsers agora é a "porteira". Ela decide o que mostrar.
+    initUsers(startApp);
 });
